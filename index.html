@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoRide - Protótipo Funcional</title>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+    <div id="success-overlay">
+        <span id="recharge-amount-feedback"></span>
+        <span id="overlay-message">CONFIRMADA com sucesso!</span>
+    </div>
+
+    <div id="login" class="screen active">
+        <h1 class="header-title" style="margin-bottom: 50px;">EcoRide</h1>
+        <p style="font-size: 18px; color: #333;">Acesse sua conta</p>
+        
+        <div class="login-input-group">
+            <input type="text" id="login-nome" placeholder="Nome Completo" class="login-input"> 
+            <input type="email" id="login-email" placeholder="E-mail (ex: teste@mail.com)" class="login-input">
+            <input type="password" id="login-senha" placeholder="Senha (qualquer uma)" class="login-input">
+            <button onclick="simularLogin()" class="action-btn">Entrar</button>
+            <button onclick="alert('Funcionalidade de Cadastro Simulada!')" class="action-btn secondary-btn">Criar Conta</button>
+        </div>
+    </div>
+
+
+    <div id="home" class="screen">
+      <div id="user-menu-icon" onclick="show('pontos')">👤</div>
+      <h1 class="header-title">EcoRide</h1>
+      
+      <div id="saldo-display">
+        <b>Saldo:</b> <span id="saldo-valor">R$ 15,00</span>
+      </div>
+
+      <div id="recompensa-display" onclick="show('recompensas')">
+          <p>Próxima recompensa:</p>
+          <div class="progress-bar">
+              <div id="progress-fill"></div>
+          </div>
+          <p><span id="viagens-restantes">2</span> viagens restantes para 1 gratuita!</p>
+      </div>
+
+      <button onclick="show('qr')">Bilhete Digital</button>
+      <button onclick="show('historico')">Histórico</button>
+      <button onclick="show('impacto')">Meu Impacto</button>
+      
+      <button id="recarga-btn" onclick="show('recarga')">Recarregar Carteira</button>
+    </div>
+
+    <div id="recompensas" class="screen">
+        <h1 class="header-title">Minhas Recompensas</h1>
+        <div id="recompensa-info">
+            <p>Você tem <span id="reward-count">0</span> viagem(ns) gratuita(s) para resgatar!</p>
+            <button id="resgatar-btn" onclick="resgatarRecompensa()" disabled>RESGATAR 1 VIAGEM GRÁTIS</button>
+            
+            <button onclick="show('desafios')" class="action-btn secondary-btn" style="margin-top: 20px;">Ver Desafios</button>
+        </div>
+        <button onclick="show('home')">Voltar</button>
+    </div>
+
+    <div id="desafios" class="screen">
+        <h1 class="header-title">Desafios Ativos</h1>
+        <p style="margin-bottom: 20px;">Complete desafios para ganhar pontos e aumentar seu nível.</p>
+        <div id="desafios-lista">
+            </div>
+        <button onclick="show('recompensas')">Voltar</button>
+    </div>
+
+    <div id="qr" class="screen">
+      <h1 class="header-title">Bilhete Digital</h1>
+      <p id="qr-status">[QR CODE AQUI]</p>
+      <button id="btn-usar-bilhete" onclick="simularUso()">Usar Bilhete (Simular Débito)</button> 
+      <button onclick="show('home')">Voltar</button>
+    </div>
+
+    <div id="historico" class="screen">
+      <h1 class="header-title">Histórico</h1>
+      <div id="historico-lista"></div>
+      <button onclick="show('home')">Voltar</button>
+    </div>
+
+    <div id="pontos" class="screen">
+      <h1 class="header-title">Perfil / Pontos</h1>
+      <p id="nome-usuario-display">Bem-vindo, Visitante!</p>
+      <p>Total: <span id="pontos-total-display">120</span> pontos</p>
+      <p>🏆 Nível: Prata</p>
+      <p>Desafios concluídos: <span id="desafios-concluidos-num">3</span></p>
+      <button onclick="show('home')">Voltar</button>
+      <button onclick="logout()" class="action-btn secondary-btn" style="margin-top: 30px;">Sair</button>
+    </div>
+
+    <div id="impacto" class="screen">
+      <h1 class="header-title">Meu Impacto</h1>
+      <p id="co2-evitado">CO₂ evitado: 12 kg</p>
+      <p>Equivalente a 1 árvore plantada 🌳</p>
+      <p>Energia economizada: 5 kWh ⚡</p>
+      <button onclick="show('home')">Voltar</button>
+    </div>
+
+    <div id="recarga" class="screen">
+      <h1 class="header-title">Recarregar Carteira</h1>
+      <p>Selecione um valor:</p>
+      <button class="value-btn" onclick="recarregar(10)">R$ 10</button>
+      <button class="value-btn" onclick="recarregar(20)">R$ 20</button>
+      <button class="value-btn" onclick="recarregar(50)">R$ 50</button>
+      <p>Método de pagamento:</p>
+      <button disabled class="payment-btn">PIX (apenas simulação de valor)</button>
+      <button disabled class="payment-btn">Cartão (apenas simulação de valor)</button>
+      <br><br>
+      <button onclick="show('home')">Voltar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
