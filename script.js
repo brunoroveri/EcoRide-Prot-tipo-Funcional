@@ -13,14 +13,6 @@ let historicoViagens = [
     { desc: 'Viagem: Centro → Bairro', valor: 4.50 }
 ];
 
-// NOVO: Lista de Desafios (Simulação)
-const desafiosAtivos = [
-    { id: 1, titulo: "Eco-Commuter Semanal", progresso: 4, meta: 5, unidade: "viagens", descricao: "Utilize transporte público ou compartilhado 5 vezes esta semana." },
-    { id: 2, titulo: "Neutralizador de Carbono", progresso: 10, meta: 15, unidade: "kg", descricao: "Evite 15kg de CO₂ em suas viagens (Simulado por Recarga)." },
-    { id: 3, titulo: "Ciclista do Fim de Semana", progresso: 0, meta: 1, unidade: "recarga", descricao: "Recarregue o saldo da carteira nos finais de semana." }
-];
-
-
 // === 2. FUNÇÕES DE NAVEGAÇÃO E AUTENTICAÇÃO ===
 function show(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -31,34 +23,35 @@ function show(id) {
   if (id === 'recompensas') atualizarRecompensas();
   if (id === 'qr') atualizarBilheteDigital();
   if (id === 'pontos') atualizarPontos();
-  if (id === 'desafios') listarDesafios(); // NOVA CHAMADA
 }
 
+// CORREÇÃO FINAL: Simulação de Login - Leva para Onboarding e garante a mensagem
 function simularLogin() {
-    const nome = document.getElementById('login-nome').value;
-    const email = document.getElementById('login-email').value;
-    const senha = document.getElementById('login-senha').value;
+    const nome = document.getElementById('login-nome').value.trim();
+    const email = document.getElementById('login-email').value.trim();
+    const senha = document.getElementById('login-senha').value.trim();
 
     if (nome && email && senha) {
         usuarioLogado.nomeCompleto = nome;
         usuarioLogado.email = email;
 
-        alert('Atenção: Este é um protótipo. Seus dados NÃO estão sendo salvos em um servidor.');
+        // MENSAGEM DE SEGURANÇA: Bloqueia momentaneamente, mas segue o fluxo
+        alert('ATENÇÃO: Este é um protótipo. Seus dados (Nome, Email, Senha) NÃO estão sendo salvos em um servidor. Clique OK para continuar.');
         
+        // Fluxo: Atualiza -> Onboarding (que depois vai para a Home)
         atualizarTodosDados(); 
-        show('home');
+        show('onboarding'); // MUDANÇA: Leva para a tela de Onboarding
     } else {
         alert('Por favor, preencha NOME, E-mail e Senha para simular o acesso.');
     }
 }
 
 function logout() {
-    // Resetar o estado para simular novo acesso
     saldo = 1.50;
     viagensFeitas = 8;
     recompensasDisponiveis = 0;
-    desafiosConcluidos = 3;
     usuarioLogado = { nomeCompleto: "Visitante", pontos: 120, email: "" };
+    desafiosConcluidos = 3;
     show('login');
 }
 
@@ -77,11 +70,9 @@ function atualizarSaldoDisplay() {
 }
 
 function atualizarPontos() {
-    // Exibe o nome do usuário logado
     document.getElementById('nome-usuario-display').innerText = `Bem-vindo(a), ${usuarioLogado.nomeCompleto.split(' ')[0]}!`;
     document.getElementById('pontos-total-display').innerText = usuarioLogado.pontos;
     
-    // Atualiza a contagem de desafios na tela de Pontos
     document.getElementById('desafios-concluidos-num').innerText = desafiosConcluidos;
 }
 
@@ -149,34 +140,10 @@ function resgatarRecompensa() {
     }
 }
 
-// NOVO: Função para listar e exibir os desafios
-function listarDesafios() {
-    const lista = document.getElementById('desafios-lista');
-    lista.innerHTML = '';
-    
-    desafiosAtivos.forEach(desafio => {
-        const progressoPercent = (desafio.progresso / desafio.meta) * 100;
-        const status = desafio.progresso >= desafio.meta ? 'CONCLUÍDO' : `${desafio.progresso} de ${desafio.meta} ${desafio.unidade}`;
-        const corStatus = desafio.progresso >= desafio.meta ? '#1a7f4c' : '#ff9800'; // Verde para concluído, Laranja para ativo
-
-        const desafioHtml = `
-            <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 15px; border-radius: 8px; text-align: left;">
-                <h3 style="color: #1a7f4c; margin-top: 5px; font-size: 18px;">${desafio.titulo}</h3>
-                <p style="font-size: 14px; color: #555;">${desafio.descricao}</p>
-                <div class="progress-bar" style="height: 8px; margin: 10px 0;">
-                    <div style="height: 100%; background-color: ${corStatus}; width: ${progressoPercent > 100 ? 100 : progressoPercent}%;"></div>
-                </div>
-                <p style="font-weight: bold; color: ${corStatus}; font-size: 14px;">Status: ${status}</p>
-            </div>
-        `;
-        lista.innerHTML += desafioHtml;
-    });
-}
-
 
 // === 4. FUNCIONALIDADE PRINCIPAL (Recarga e Uso) ===
 
-// CORREÇÃO DE TIMING: Reduzido o tempo de espera para 1s (Maior eficiência percebida)
+// TEMPO REDUZIDO PARA 1 SEGUNDO
 function exibirOverlay(valor, tipo) { 
     const overlay = document.getElementById('success-overlay');
     const valorDisplay = document.getElementById('recharge-amount-feedback');
@@ -192,7 +159,6 @@ function exibirOverlay(valor, tipo) {
     
     overlay.style.display = 'flex'; 
     
-    // TEMPO REDUZIDO PARA 1 SEGUNDO
     setTimeout(() => {
         overlay.style.display = 'none';
         atualizarTodosDados(); 
@@ -202,16 +168,14 @@ function exibirOverlay(valor, tipo) {
 
 function recarregar(valor) {
   saldo += valor;
-  
-  // Simulação de Desafio: Concluir um desafio a cada recarga (para fins de protótipo)
   desafiosConcluidos += 1; 
-  usuarioLogado.pontos += 10; // Adiciona pontos por recarga simulada
+  usuarioLogado.pontos += 10; 
 
   exibirOverlay(valor, 'success'); 
 }
 
 
-// CORREÇÃO DE TIMING: Reduzido o tempo de espera para 2s (Maior eficiência percebida)
+// TEMPO REDUZIDO PARA 2 SEGUNDOS
 function simularUso() {
     const isFreeTrip = recompensasDisponiveis > 0;
     let mensagemFeedback;
@@ -237,7 +201,6 @@ function simularUso() {
     document.getElementById('qr-status').innerText = mensagemFeedback;
     document.getElementById('qr-status').style.color = isFreeTrip ? 'green' : 'red'; 
     
-    // TEMPO REDUZIDO PARA 2 SEGUNDOS
     setTimeout(() => {
         document.getElementById('qr-status').innerText = '[QR CODE AQUI]';
         document.getElementById('qr-status').style.color = 'black';

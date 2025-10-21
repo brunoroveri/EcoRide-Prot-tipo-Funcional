@@ -20,12 +20,33 @@
         <p style="font-size: 18px; color: #333;">Acesse sua conta</p>
         
         <div class="login-input-group">
-            <input type="text" id="login-nome" placeholder="Nome Completo" class="login-input"> 
+            <input type="text" id="login-nome" placeholder="Nome Completo" class="login-input">
             <input type="email" id="login-email" placeholder="E-mail (ex: teste@mail.com)" class="login-input">
             <input type="password" id="login-senha" placeholder="Senha (qualquer uma)" class="login-input">
             <button onclick="simularLogin()" class="action-btn">Entrar</button>
             <button onclick="alert('Funcionalidade de Cadastro Simulada!')" class="action-btn secondary-btn">Criar Conta</button>
         </div>
+    </div>
+
+    <div id="onboarding" class="screen">
+        <h1 class="header-title">Bem-vindo(a) ao EcoRide!</h1>
+        <div style="padding: 0 10%; text-align: left;">
+            <p style="font-size: 16px; font-weight: bold; color: #1a7f4c;">
+                Simplificando seu transporte sustentável.
+            </p>
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li style="margin-bottom: 15px;">
+                    ✅ **Carteira Unificada:** Use um único saldo (R$) para pagar todas as suas viagens (transporte público, bikes e patinetes).
+                </li>
+                <li style="margin-bottom: 15px;">
+                    💰 **Sistema de Recompensas:** A cada 10 viagens pagas, você ganha 1 viagem gratuita!
+                </li>
+                <li style="margin-bottom: 15px;">
+                    🌎 **Impacto Ambiental:** Suas escolhas ecológicas geram pontos e reduzem o CO₂.
+                </li>
+            </ul>
+        </div>
+        <button onclick="show('home')" class="action-btn" style="margin-top: 20px;">Começar a Usar!</button>
     </div>
 
 
@@ -57,18 +78,8 @@
         <div id="recompensa-info">
             <p>Você tem <span id="reward-count">0</span> viagem(ns) gratuita(s) para resgatar!</p>
             <button id="resgatar-btn" onclick="resgatarRecompensa()" disabled>RESGATAR 1 VIAGEM GRÁTIS</button>
-            
-            <button onclick="show('desafios')" class="action-btn secondary-btn" style="margin-top: 20px;">Ver Desafios</button>
         </div>
         <button onclick="show('home')">Voltar</button>
-    </div>
-
-    <div id="desafios" class="screen">
-        <h1 class="header-title">Desafios Ativos</h1>
-        <p style="margin-bottom: 20px;">Complete desafios para ganhar pontos e aumentar seu nível.</p>
-        <div id="desafios-lista">
-            </div>
-        <button onclick="show('recompensas')">Voltar</button>
     </div>
 
     <div id="qr" class="screen">
@@ -89,7 +100,7 @@
       <p id="nome-usuario-display">Bem-vindo, Visitante!</p>
       <p>Total: <span id="pontos-total-display">120</span> pontos</p>
       <p>🏆 Nível: Prata</p>
-      <p>Desafios concluídos: <span id="desafios-concluidos-num">3</span></p>
+      <p>Desafios concluídos: <span id="desafios-concluidos-num">3</span></p> 
       <button onclick="show('home')">Voltar</button>
       <button onclick="logout()" class="action-btn secondary-btn" style="margin-top: 30px;">Sair</button>
     </div>
