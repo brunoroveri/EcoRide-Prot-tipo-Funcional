@@ -25,7 +25,7 @@ function show(id) {
   if (id === 'pontos') atualizarPontos();
 }
 
-// CORREÇÃO FINAL: Simulação de Login - Leva para Onboarding e garante a mensagem
+// Simulação de Login - Leva para Onboarding e garante a mensagem
 function simularLogin() {
     const nome = document.getElementById('login-nome').value.trim();
     const email = document.getElementById('login-email').value.trim();
@@ -40,7 +40,7 @@ function simularLogin() {
         
         // Fluxo: Atualiza -> Onboarding (que depois vai para a Home)
         atualizarTodosDados(); 
-        show('onboarding'); // MUDANÇA: Leva para a tela de Onboarding
+        show('onboarding');
     } else {
         alert('Por favor, preencha NOME, E-mail e Senha para simular o acesso.');
     }
@@ -143,7 +143,6 @@ function resgatarRecompensa() {
 
 // === 4. FUNCIONALIDADE PRINCIPAL (Recarga e Uso) ===
 
-// TEMPO REDUZIDO PARA 1 SEGUNDO
 function exibirOverlay(valor, tipo) { 
     const overlay = document.getElementById('success-overlay');
     const valorDisplay = document.getElementById('recharge-amount-feedback');
@@ -175,7 +174,6 @@ function recarregar(valor) {
 }
 
 
-// TEMPO REDUZIDO PARA 2 SEGUNDOS
 function simularUso() {
     const isFreeTrip = recompensasDisponiveis > 0;
     let mensagemFeedback;
@@ -210,7 +208,7 @@ function simularUso() {
 }
 
 
-// Chamada inicial: O protótipo AGORA COMEÇA NA TELA DE LOGIN
+
 window.onload = function() {
     show('login'); 
 };
